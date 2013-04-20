@@ -1,1 +1,16 @@
+import urllib
 
+def download():
+    link = raw_input("Enter URL: ")
+    f = urllib.urlopen(link)
+    L = f.readlines()
+    f.close()
+    for item in L:
+        if "header-img" in item:
+            posn_initial = item.find("header-img") + 41
+            new_lst = item[posn_initial:]
+            posn_mid = new_lst.find("png") + 3
+            posn_final = posn_mid + posn_initial          
+            link_address = item[posn_initial:posn_final]
+            urllib.urlretrieve(link_address, "local-filename.png")
+download()
